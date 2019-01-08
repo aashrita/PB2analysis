@@ -90,9 +90,9 @@ def dump(run_number, dir_output):
         # set up pipeline
         pipe = core.G3Pipeline()
         pipe.Add(core.G3Reader, filename=dfiles)
-        pipe.Add(get_times)
-        pipe.Add(get_TOD, start=start, end=end)
-        pipe.Add(get_azel)
+        pipe.Add(get_times, times_buff)
+        pipe.Add(get_TOD, start=start, end=end, tod_buffs_I, tod_buffs_Q)
+        pipe.Add(get_azel, antennatime_buff, az_buff el_buff)
         pipe.Run()
 
         # group stuff into single arrays
