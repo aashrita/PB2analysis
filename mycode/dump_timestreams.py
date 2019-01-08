@@ -34,7 +34,7 @@ def get_azel(frame, antennatime_buff, az_buff, el_buff):
         az_buff.append(frame['TrackerStatus'].az_pos)
         el_buff.append(frame['TrackerStatus'].el_pos)
 
-def plot_ADCvsTOD(bolodates, tod_I, tod_Q, antennadates, plotdir):
+def plot_ADCvsTOD(bolodates, tod_I, tod_Q, antennadates, plotdir, az, el):
     fig, ax = plt.subplots(figsize=(12,10), sharex=True, nrows=4, ncols=1)
     for iax in range(4):
         ax[iax].xaxis.set_major_formatter(md.DateFormatter('%Y/%m/%d %H:%M:%S'))
@@ -116,7 +116,7 @@ def dump(run_number, dir_output):
                 print('skipping because tod is different length')
                 continue
 
-            plot_ADCvsTOD(bolodates, tod_I, tod_Q, antennatimes, plotdir)
+            plot_ADCvsTOD(bolodates, tod_I, tod_Q, antennatimes, plotdir, az, el)
     
 
 def main():
