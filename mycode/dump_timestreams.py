@@ -36,23 +36,23 @@ def get_azel(frame, antennatime_buff, az_buff, el_buff):
 
 def plot_ADCvsTOD(bolodates, tod_I, tod_Q, antennadates, plotdir):
     fig, ax = plt.subplots(figsize=(12,10), sharex=True, nrows=4, ncols=1)
-        for iax in range(4):
-            ax[iax].xaxis.set_major_formatter(md.DateFormatter('%Y/%m/%d %H:%M:%S'))
-            plt.xticks(rotation=45, fontsize=6)
-            #ax[iax].xaxis.set_tick_params(which='both', rotation=45)
-        ax[0].plot(bolodates, tod_I, 'b.', markersize=2)
-        ax[1].plot(bolodates, tod_Q, 'r.', markersize=2)
-        ax[2].plot(antennadates, az*180/np.pi, 'c-')
-        ax[3].plot(antennadates, el*180/np.pi, 'm-')
-        ax[3].set_xlabel('UTC time')
-        ax[0].set_ylabel('ADC counts (I)')
-        ax[1].set_ylabel('ADC counts (Q)')
-        ax[2].set_ylabel('Boresight Az [deg]')
-        ax[3].set_ylabel('Boresight El [deg]')
-        fig.suptitle('Run {:d} - {:s}'.format(run_number, det), fontweight='bold')
-        fig.savefig(plotdir + '{:s}.png'.format(det))
-        #plt.show()
-        plt.close(fig)
+    for iax in range(4):
+        ax[iax].xaxis.set_major_formatter(md.DateFormatter('%Y/%m/%d %H:%M:%S'))
+        plt.xticks(rotation=45, fontsize=6)
+        #ax[iax].xaxis.set_tick_params(which='both', rotation=45)
+    ax[0].plot(bolodates, tod_I, 'b.', markersize=2)
+    ax[1].plot(bolodates, tod_Q, 'r.', markersize=2)
+    ax[2].plot(antennadates, az*180/np.pi, 'c-')
+    ax[3].plot(antennadates, el*180/np.pi, 'm-')
+    ax[3].set_xlabel('UTC time')
+    ax[0].set_ylabel('ADC counts (I)')
+    ax[1].set_ylabel('ADC counts (Q)')
+    ax[2].set_ylabel('Boresight Az [deg]')
+    ax[3].set_ylabel('Boresight El [deg]')
+    fig.suptitle('Run {:d} - {:s}'.format(run_number, det), fontweight='bold')
+    fig.savefig(plotdir + '{:s}.png'.format(det))
+    #plt.show()
+    plt.close(fig)
 
 
 def dump(run_number, dir_output):
