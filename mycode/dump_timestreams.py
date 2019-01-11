@@ -105,10 +105,13 @@ def dump(run_number, dir_output):
         bolodates = md.date2num([dt.datetime.fromtimestamp(t) for t in times])
         antennadates = md.date2num([dt.datetime.fromtimestamp(t) for t in antennatimes])
 
+        # decide which plots we want here
+        PLOT_ADCVSTOD = False
+
         for det in tod_buffs_I:
             print('Concatenating {:s}...'.format(det))
             tod_I = np.concatenate(tod_buffs_I[det])
-            tod_Q = np.concatenate(tod_buffs_Q[det])
+            tod_Q = np.concatenate(tod_buffs_Q[det]) 
 
             # skip problem TODs
             if np.all(np.isnan(tod_I)) or np.all(np.isnan(tod_Q)): continue
@@ -117,25 +120,35 @@ def dump(run_number, dir_output):
                 continue
 
             # plot_ADCvsTOD(bolodates, tod_I, tod_Q, antennatimes, plotdir, az, el, run_number, det)
-            fig, ax = plt.subplots(figsize=(12,10), sharex=True, nrows=4, ncols=1)
-            for iax in range(4):
-                ax[iax].xaxis.set_major_formatter(md.DateFormatter('%Y/%m/%d %H:%M:%S'))
-                plt.xticks(rotation=45, fontsize=6)
-                #ax[iax].xaxis.set_tick_params(which='both', rotation=45)
-            ax[0].plot(bolodates, tod_I, 'b.', markersize=2)
-            ax[1].plot(bolodates, tod_Q, 'r.', markersize=2)
-            ax[2].plot(antennadates, az*180/np.pi, 'c-')
-            ax[3].plot(antennadates, el*180/np.pi, 'm-')
-            ax[3].set_xlabel('UTC time')
-            ax[0].set_ylabel('ADC counts (I)')
-            ax[1].set_ylabel('ADC counts (Q)')
-            ax[2].set_ylabel('Boresight Az [deg]')
-            ax[3].set_ylabel('Boresight El [deg]')
-            fig.suptitle('Run {:d} - {:s}'.format(run_number, det), fontweight='bold')
-            fig.savefig(plotdir + '{:s}.png'.format(det))
-            #plt.show()
-            plt.close(fig)
-    
+
+            # fig, ax = plt.subplots(figsize=(12,10), sharex=True, nrows=4, ncols=1)
+            # for iax in range(4):
+            #     ax[iax].xaxis.set_major_formatter(md.DateFormatter('%Y/%m/%d %H:%M:%S'))
+            #     plt.xticks(rotation=45, fontsize=6)
+            #     #ax[iax].xaxis.set_tick_params(which='both', rotation=45)
+            # ax[0].plot(bolodates, tod_I, 'b.', markersize=2)
+            # ax[1].plot(bolodates, tod_Q, 'r.', markersize=2)
+            # ax[2].plot(antennadates, az*180/np.pi, 'c-')
+            # ax[3].plot(antennadates, el*180/np.pi, 'm-')
+            # ax[3].set_xlabel('UTC time')
+            # ax[0].set_ylabel('ADC counts (I)')
+            # ax[1].set_ylabel('ADC counts (Q)')
+            # ax[2].set_ylabel('Boresight Az [deg]')
+            # ax[3].set_ylabel('Boresight El [deg]')
+            # fig.suptitle('Run {:d} - {:s}'.format(run_number, det), fontweight='bold')
+            # fig.savefig(plotdir + '{:s}.png'.format(det))
+            # #plt.show()
+            # plt.close(fig)
+
+            # plot_dElvsdAz
+
+            #fig, ax = plt.subplots(111)
+
+        print(az)
+
+
+
+
 
 def main():
     parser = argparse.ArgumentParser()
